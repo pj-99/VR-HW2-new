@@ -25,6 +25,8 @@ public class LineRaycaster : NetworkBehaviour
     private void Start()
     {
         //get lineRenderer, wall1, wall2, wall3, wall4
+        lineRenderer = GetComponentInChildren<LineRenderer>();
+
     }
     
     [Client]
