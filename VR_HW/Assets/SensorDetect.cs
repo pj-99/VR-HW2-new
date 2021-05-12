@@ -15,7 +15,11 @@ public class SensorDetect : MonoBehaviour
     {   
         
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.name + "is trigger ! ");
+    }
+    private void On(Collision collision)
     {
         Debug.Log(collision.gameObject.name + "is Collide ! ");
     }

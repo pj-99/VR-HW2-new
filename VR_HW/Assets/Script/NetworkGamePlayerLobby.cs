@@ -12,7 +12,7 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
 
     //sync var can only been change by server, and update iteself
     [SyncVar]
-    private string displayName = "Loading...";
+    public string displayName = "Loading...";
 
 
     private NetworkManagerLobby room;

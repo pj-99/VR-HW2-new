@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using Mirror;
+using TMPro;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -34,17 +35,70 @@ public class PlayerController : NetworkBehaviour
     [SyncVar]
     public string playerName;
 
+    private TMP_Text tmpText = null;
+    private uint playerNetID = 0;
+
+    /**
+    void OnChangeName(String old,String name)
+    {
+        playerName = name;
+        Debug.Log("name change! : " + name);
+        tmpText = transform.Find("Name").GetChild(0).GetComponent<TMP_Text>();
+        tmpText.SetText(playerName);
+    }*/
+
+
+    public override void OnStartClient()
+    {
+
+        base.OnStartClient();
+        if (!hasAuthority) return;
+        playerNetID = this.netId;
+        NetworkGamePlayerLobby[] gamePlayers = FindObjectsOfType<NetworkGamePlayerLobby>();
+        for (int i = 0; i < gamePlayers.Length; i++) {
+            if (gamePlayers[i].hasAuthority){
+                playerName = gamePlayers[i].displayName;
+
+                CmdSetName(playerName);
+                Debug.Log("SetName of : " + playerName + " is ServeR?" + isServer);
+            }
+        }
+
+
+        Debug.Log("in Player Controller.cs onStartClient, name : "+ playerName);
+    }
+
+
+
+    [Command]
+    void CmdSetName(string nameToSend){
+        RpcSetName(nameToSend);
+        Debug.Log("CmdSetName");
+    }
+
+    [ClientRpc]
+    void RpcSetName(string nameToSend) {
+
+        tmpText = transform.Find("Name").GetChild(0).GetComponent<TMP_Text>();
+        tmpText.SetText(nameToSend);
+
+        Debug.Log("RpcSetName: SetName of : " +playerName+" is ServeR?" + isServer);
+    }
+
+
     //add Texting Event here
 
     public override void OnStartAuthority()
     {
+        Debug.Log("Onstart Authoriy");
         virtualCamera.gameObject.SetActive(true);
 
         enabled = true;
-        
+
         Controls.Player.Look.performed += ctx => Look(ctx.ReadValue<Vector2>());
         Controls.Player.Hand_forward.performed += ctx => Scrolling(ctx.ReadValue<Vector2>());
         Controls.Player.Hand_forward.canceled += ctx => N_Scrolling();
+
     }
 
     [ClientCallback]
