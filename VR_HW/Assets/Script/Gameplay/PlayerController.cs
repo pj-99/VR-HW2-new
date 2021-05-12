@@ -60,12 +60,12 @@ public class PlayerController : NetworkBehaviour
                 playerName = gamePlayers[i].displayName;
 
                 CmdSetName(playerName);
-                Debug.Log("SetName of : " + playerName + " is ServeR?" + isServer);
+                //Debug.Log("SetName of : " + playerName + " is ServeR?" + isServer);
             }
         }
 
 
-        Debug.Log("in Player Controller.cs onStartClient, name : "+ playerName);
+        //Debug.Log("in Player Controller.cs onStartClient, name : "+ playerName);
     }
 
 
@@ -73,7 +73,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     void CmdSetName(string nameToSend){
         RpcSetName(nameToSend);
-        Debug.Log("CmdSetName");
+        //Debug.Log("CmdSetName");
     }
 
     [ClientRpc]
@@ -82,7 +82,7 @@ public class PlayerController : NetworkBehaviour
         tmpText = transform.Find("Name").GetChild(0).GetComponent<TMP_Text>();
         tmpText.SetText(nameToSend);
 
-        Debug.Log("RpcSetName: SetName of : " +playerName+" is ServeR?" + isServer);
+        //Debug.Log("RpcSetName: SetName of : " +playerName+" is ServeR?" + isServer);
     }
 
 
@@ -90,7 +90,7 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        Debug.Log("Onstart Authoriy");
+       // Debug.Log("Onstart Authoriy");
         virtualCamera.gameObject.SetActive(true);
 
         enabled = true;

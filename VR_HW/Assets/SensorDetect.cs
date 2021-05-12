@@ -4,23 +4,56 @@ using UnityEngine;
 
 public class SensorDetect : MonoBehaviour
 {
+    public GameObject door1 = null;
+    public GameObject door2 = null;
+    public GameObject door3 = null;
+    public GameObject door4 = null;
+
+    private Animation doorLeft = null;
+    private Animation doorRight = null;
+
+    private Animation doorLeft2 = null;
+    private Animation doorRight2 = null;
+    public float radius = 1f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        doorLeft = door1.GetComponent<Animation>();
+        doorRight = door2.GetComponent<Animation>();
+        doorLeft2 = door3.GetComponent<Animation>();
+        doorRight2 = door4.GetComponent<Animation>();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, radius);
+    }
     // Update is called once per frame
     void Update()
-    {   
-        
+    {
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position,radius);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.tag == "Player"){
+                Debug.Log(hitCollider.gameObject.name + " this one hit me!");
+                doorLeft.Play();
+                doorRight.Play();
+                doorLeft2.Play();
+                doorRight2.Play();
+                this.gameObject.SetActive(false);
+                break;
+            }
+       }
     }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name + "is trigger ! ");
     }
-    private void On(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.name + "is Collide ! ");
     }
+
 }
