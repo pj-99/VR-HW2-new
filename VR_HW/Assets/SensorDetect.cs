@@ -42,7 +42,6 @@ public class SensorDetect : MonoBehaviour
                 doorRight.Play();
                 //doorLeft2.Play();
                 //doorRight2.Play();
-                this.gameObject.SetActive(false);
                 break;
             }
        }
