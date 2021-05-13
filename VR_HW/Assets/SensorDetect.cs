@@ -14,6 +14,7 @@ public class SensorDetect : MonoBehaviour
 
     private Animation doorLeft2 = null;
     private Animation doorRight2 = null;
+    private bool isUsed = false;
     public float radius = 1f;
     // Start is called before the first frame update
     void Start()
@@ -36,12 +37,14 @@ public class SensorDetect : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position,radius);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.gameObject.tag == "Player"){
+            
+            if (hitCollider.gameObject.tag == "Player" && !isUsed){
                 Debug.Log(hitCollider.gameObject.name + " this one hit me!");
                 doorLeft.Play();
                 doorRight.Play();
                 //doorLeft2.Play();
                 //doorRight2.Play();
+                isUsed = true;
                 break;
             }
        }
