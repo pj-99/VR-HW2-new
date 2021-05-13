@@ -40,8 +40,8 @@ public class SensorDetect : MonoBehaviour
                 Debug.Log(hitCollider.gameObject.name + " this one hit me!");
                 doorLeft.Play();
                 doorRight.Play();
-                doorLeft2.Play();
-                doorRight2.Play();
+                //doorLeft2.Play();
+                //doorRight2.Play();
                 this.gameObject.SetActive(false);
                 break;
             }
