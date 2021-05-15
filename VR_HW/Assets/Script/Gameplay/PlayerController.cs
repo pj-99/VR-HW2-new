@@ -17,7 +17,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private Transform LeftHand = null;
     [SerializeField] private Transform RightHand = null;
     [SerializeField] private CinemachineVirtualCamera virtualCamera = null;
-
+    [SerializeField] public GameObject keyboard = null;
+    private Boolean isKeyShow = false;
     private Controls controls;
 
     private Controls Controls
@@ -170,6 +171,21 @@ public class PlayerController : NetworkBehaviour
                 RightHand.position += transform.right * Mouse.current.delta.ReadValue().x * deltaTime * sensitivity;
             }
         }
+
+        /**keybaord display*/
+
+        if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            if (isKeyShow) isKeyShow = false;
+            else isKeyShow = true;
+
+        }
+
+        if (keyboard != null) {
+            if (isKeyShow) keyboard.SetActive(true);
+            else keyboard.SetActive(false);
+        }
+        
     }
 
     //Add texting Command and ClientRpc here

@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIRaycaster : MonoBehaviour
+public class GameUIRaycaster : MonoBehaviour
 {
+    public float distance = 10f;
     private LineRenderer lineRenderer;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +17,7 @@ public class UIRaycaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray ray = new Ray(transform.position, transform.forward * 20f + transform.position);
+        Ray ray = new Ray(transform.position, transform.forward * distance + transform.position);
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.forward * 5f + transform.position);
 

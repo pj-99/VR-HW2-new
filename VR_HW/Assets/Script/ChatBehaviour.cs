@@ -57,6 +57,21 @@ namespace DapperDino.Mirror.Tutorials.Chat
             inputField.text = string.Empty;
         }
 
+        [Client]
+        public void SendByButton()
+        {
+
+            //if (!Input.GetKeyDown(KeyCode.Return)) { return; }
+            string message = inputField.text;
+
+            if (string.IsNullOrWhiteSpace(message)) { return; }
+
+
+            CmdSendMessage(message, playerName);
+
+            inputField.text = string.Empty;
+        }
+
         [Command]
         private void CmdSendMessage(string message,string player)
         {
