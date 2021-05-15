@@ -73,26 +73,27 @@ public class LineRaycaster : NetworkBehaviour
         {
             lineRenderer.SetPosition(1, hit.point);
                 
-                Debug.Log("hit at " + hit.collider.gameObject.name);
-                if(hit.collider.GetComponent<NetworkIdentity>()!= null) Debug.Log("authority : " + hit.collider.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
+            Debug.Log("hit at " + hit.collider.gameObject.name);
+               
 
-                if (hit.collider.gameObject.transform.root.name == "Interactable" && Keyboard.current.gKey.wasPressedThisFrame)
+            if (hit.collider.gameObject.transform.root.name == "Interactable" && Keyboard.current.gKey.wasPressedThisFrame)
             {
 
                 Debug.Log("in update, call cmd_set_target: "+ hit.collider.gameObject.name  );
 
-                    cmd_set_target(hit.collider.gameObject);
+                cmd_set_target(hit.collider.gameObject);
 
-                }
-            else if (hit.collider.transform.root.name == "Choices" && Keyboard.current.gKey.wasPressedThisFrame) {
-
+            }
+            else if (hit.collider.transform.root.name == "Choices" && Keyboard.current.gKey.wasPressedThisFrame)
+            {
+          
 
                 Debug.Log("pointin at !"+ hit.collider.transform.GetChild(0).gameObject.name );
                 if (hit.collider.transform.GetChild(0).gameObject.name == "Canvas (4)")
-                    {
-                        cmd_open();
-                        Debug.Log("correct!");
-                    }
+                {
+                    cmd_open();
+                    Debug.Log("correct!");
+                }
 
             }
             //if collider object is interactable object, call command to set moving_object to collider gameobject
@@ -160,18 +161,7 @@ public class LineRaycaster : NetworkBehaviour
 
     [ClientRpc]//Update moving_object's position
     private void Move_Object(Vector3 dest) {
-        //Debug.Log("Move_Object() ,"+moving_object.name+"  dest: "+dest+ "source: "+ moving_object.transform.position);
-
-        //moving_object.transform.position = new Vector3(0,0,0);
-        //moving_object.transform.Translate(dest);'
-
-
         if (moving_object == null) return;
         moving_object.GetComponent<Rigidbody>().MovePosition(dest);
-        //moving_object.transform.position = dest;
-        //moving_object.GetComponent<Rigidbody>().velocity= dest - moving_object.transform.position;
-
-
-
     }
 }

@@ -7,7 +7,7 @@
 
 ### 2. GamePlay
 - [x] Texting(5%) 
-- [ ] Voice Chat(5%)
+- [x] Voice Chat(5%)
   - [ ] UI Desgin(15%)
 - [x] Detect GameObject on the sensor => open the door(5%)
 - [x] A Player move a object => the other players can observe the movement (10%)
