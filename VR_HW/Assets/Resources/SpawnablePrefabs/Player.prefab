@@ -580,7 +580,6 @@ GameObject:
   - component: {fileID: 5706067803804601367}
   - component: {fileID: 9005415754248034587}
   - component: {fileID: 7414611361547829689}
-  - component: {fileID: 8600331543612660419}
   m_Layer: 5
   m_Name: Chat Panel
   m_TagString: Untagged
@@ -621,7 +620,8 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 2613085608620829538, guid: 5a3146bd52507e64fbaf96e786a7afda,
+    type: 3}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -684,21 +684,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: Main Camera
---- !u!114 &8600331543612660419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905129887879142708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e3565d4c189964bae5097cf48acf78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tmp_field: {fileID: 8561240066921497503}
-  text: {fileID: 0}
-  scr_bar: {fileID: 0}
 --- !u!1 &2080932203113859840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,7 +1123,18 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1693557200083156616}
+        m_MethodName: Send
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -1485,7 +1481,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8600331543612660419}
+      - m_Target: {fileID: 0}
         m_MethodName: OnSend
         m_Mode: 1
         m_Arguments:
@@ -1514,6 +1510,7 @@ GameObject:
   - component: {fileID: 1560121651641006452}
   - component: {fileID: 202348434469064965}
   - component: {fileID: 352749662085506870}
+  - component: {fileID: 1693557200083156616}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1709,6 +1706,23 @@ MonoBehaviour:
   syncInterval: 0.1
   distance: 20
   rightHand: {fileID: 8349630614083563812}
+--- !u!114 &1693557200083156616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151849506753723152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7357da28c82f434bbe7a76e617619dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  chatUI: {fileID: 1905129887879142708}
+  chatText: {fileID: 666968313608960336}
+  inputField: {fileID: 8561240066921497503}
 --- !u!1 &6170574409297696413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,7 +1734,6 @@ GameObject:
   - component: {fileID: 5771286112306636714}
   - component: {fileID: 8831232470623640598}
   - component: {fileID: 666968313608960336}
-  - component: {fileID: 7257003279711037024}
   m_Layer: 0
   m_Name: ChatHistory
   m_TagString: Untagged
@@ -1843,18 +1856,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7257003279711037024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170574409297696413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa3c155c6834284da3e4c4f4d145ec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6558049848995391871
 GameObject:
   m_ObjectHideFlags: 0

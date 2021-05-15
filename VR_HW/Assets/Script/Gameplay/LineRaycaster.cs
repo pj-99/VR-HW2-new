@@ -60,7 +60,7 @@ public class LineRaycaster : NetworkBehaviour
                
                 cmd_GetHold(moving_object);
             }
-            else if (!Keyboard.current.gKey.isPressed && moving_object!=null) cmd_Release(moving_object);
+            else if (Keyboard.current.gKey.wasReleasedThisFrame && moving_object!=null) cmd_Release(moving_object);
 
 
         Ray ray = new Ray(rightHand.position, rightHand.forward * distance + rightHand.position);
