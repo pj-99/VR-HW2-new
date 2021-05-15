@@ -30,6 +30,7 @@ public class LineRaycaster : NetworkBehaviour
     private void setMovingObject(GameObject target) {
         Debug.Log(" [server ] setMovingObject");
         moving_object = target;
+        Debug.Log("[server ] now moving object is : " + moving_object);
 
     }
 
@@ -52,14 +53,14 @@ public class LineRaycaster : NetworkBehaviour
         //if press key G, call command hold object, else if key up, call command release object
         if (hasAuthority)
         {
-            
-            if (Keyboard.current.gKey.isPressed && moving_object != null)
+
+            if (Keyboard.current.gKey.isPressed && moving_object != null) 
             {
                 Debug.Log("in update want to hold");
                
                 cmd_GetHold(moving_object);
             }
-            else if (Keyboard.current.gKey.wasReleasedThisFrame && moving_object!=null) cmd_Release(moving_object);
+            else if (!Keyboard.current.gKey.isPressed && moving_object!=null) cmd_Release(moving_object);
 
 
         Ray ray = new Ray(rightHand.position, rightHand.forward * distance + rightHand.position);
@@ -71,25 +72,15 @@ public class LineRaycaster : NetworkBehaviour
         if (Physics.Raycast(ray, out hit) )
         {
             lineRenderer.SetPosition(1, hit.point);
-            //Debug.Log("Raycast 1: " + hit.collider.gameObject.name);
-            //Debug.Log("Raycast 2: " + hit.collider.gameObject.transform.root.name);
+                
+                Debug.Log("hit at " + hit.collider.gameObject.name);
+                if(hit.collider.GetComponent<NetworkIdentity>()!= null) Debug.Log("authority : " + hit.collider.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
 
-            //Debug.Log("Raycast 2: " + hit.collider.gameObject.transform.GetChild(0).name);
-            //Debug.Log("Raycast 3: " + hit.collider.gameObject.transform.transform.name);
-            //Debug.Log("Raycast " + hit.collider.gameObject.transform.transform.name + " root parent: " + hit.collider.gameObject.transform.root.name);
-            if (hit.collider.gameObject.transform.root.name == "Interactable" && Keyboard.current.gKey.wasPressedThisFrame)
+                if (hit.collider.gameObject.transform.root.name == "Interactable" && Keyboard.current.gKey.wasPressedThisFrame)
             {
 
-                Debug.Log("in update, call cmd_set_target");
-                /**
-                Debug.Log("couting distance : " + (hit.collider.gameObject.transform.position - gameObject.transform.position).sqrMagnitude);
-                Debug.Log("couting distance by hit.point : " + (hit.point - gameObject.transform.position).sqrMagnitude);
-                    if (moving_object == null)
-                    {
-                        distance = 5f;
-                        Debug.Log("change distance to : " + distance);
-                    }
-                 */
+                Debug.Log("in update, call cmd_set_target: "+ hit.collider.gameObject.name  );
+
                     cmd_set_target(hit.collider.gameObject);
 
                 }
@@ -126,11 +117,15 @@ public class LineRaycaster : NetworkBehaviour
                 wall4.transform.position += new Vector3(0f, 0.05f, 0f);
             }
         }
+        ///if (moving_object != null) Debug.Log("now moving object : " + moving_object.name);
+        ///else { Debug.Log("now has no moving object!!!!!!!!!"); }
     }
 
     [Command]//set gameobject's kinematic to true and call clientRpc to update gamobject position
     private void cmd_GetHold(GameObject collider)
     {
+
+        if (collider == null) return;
         Debug.Log("cmd_GetHold()");
         Rigidbody rb = collider.GetComponent<Rigidbody>();
         rb.isKinematic = true;
@@ -140,11 +135,11 @@ public class LineRaycaster : NetworkBehaviour
     
     [Command]//set gameobject's kinematic to false and call command to set moving_object to null
     private void cmd_Release(GameObject collider)
+
     {
         Debug.Log("cmd_release");
-        Rigidbody rb = collider.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
-        distance = 20;
+        collider.GetComponent<Rigidbody>().isKinematic = false;
+
         setMovingObject(null);
         
     }
@@ -165,18 +160,15 @@ public class LineRaycaster : NetworkBehaviour
 
     [ClientRpc]//Update moving_object's position
     private void Move_Object(Vector3 dest) {
-        Debug.Log("Move_Object() ,"+moving_object.name+"  dest: "+dest+ "source: "+ moving_object.transform.position);
+        //Debug.Log("Move_Object() ,"+moving_object.name+"  dest: "+dest+ "source: "+ moving_object.transform.position);
 
         //moving_object.transform.position = new Vector3(0,0,0);
         //moving_object.transform.Translate(dest);'
 
-        Debug.Log("moving object !"+  (dest - moving_object.transform.position) );
-        //moving_object.transform.position = dest;
-        //Vector3 offset = moving_object.transform.position - dest;
-        //float dist = ((dest) - lineRenderer.GetPosition(0)).sqrMagnitude;
-        //moving_object.transform.position = dest + transform.forward * distance;
-        
+
+        if (moving_object == null) return;
         moving_object.GetComponent<Rigidbody>().MovePosition(dest);
+        //moving_object.transform.position = dest;
         //moving_object.GetComponent<Rigidbody>().velocity= dest - moving_object.transform.position;
 
 

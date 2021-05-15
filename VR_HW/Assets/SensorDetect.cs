@@ -33,7 +33,7 @@ public class SensorDetect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         Collider[] hitColliders = Physics.OverlapSphere(transform.position,radius);
         foreach (var hitCollider in hitColliders)
         {
@@ -47,7 +47,9 @@ public class SensorDetect : MonoBehaviour
                 isUsed = true;
                 break;
             }
-       }
+
+
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -55,6 +57,10 @@ public class SensorDetect : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.name == "Sphere") {
+            doorLeft2.Play();
+            doorRight2.Play();
+        }
         Debug.Log(collision.gameObject.name + "is Collide ! ");
     }
 

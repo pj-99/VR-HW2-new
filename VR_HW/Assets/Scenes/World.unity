@@ -2034,6 +2034,7 @@ GameObject:
   - component: {fileID: 1455122834}
   - component: {fileID: 1455122833}
   - component: {fileID: 1455122832}
+  - component: {fileID: 1455122836}
   m_Layer: 0
   m_Name: Sphere_Teleport (1)
   m_TagString: Untagged
@@ -2116,6 +2117,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1455122836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455122831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374fe06fbee91af47bc85bdf18cc3b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1473487767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,8 +3051,8 @@ GameObject:
   - component: {fileID: 1946637140}
   - component: {fileID: 1946637139}
   - component: {fileID: 1946637138}
-  - component: {fileID: 1946637142}
   - component: {fileID: 1946637143}
+  - component: {fileID: 1946637142}
   m_Layer: 0
   m_Name: Sphere_Teleport
   m_TagString: Untagged
@@ -3131,9 +3144,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1946637137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc86d38a1b660e94aa34d414347de42d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f43da1ffeeb87840a92c3ee5f2a75c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  dest: {fileID: 1455122831}
 --- !u!114 &1946637143
 MonoBehaviour:
   m_ObjectHideFlags: 0
